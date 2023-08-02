@@ -1,22 +1,25 @@
-
-import Vue from 'vue';
-import Submenu from "./components/Submenu";
+import Vue from "vue";
+import Submenu from "./components/Submenu.vue";
 import { getElementsByClassName } from "./util";
-import { COMPONENT_NAME, CLASS_MENU, CLASS_MENU_ITEM, CLASS_MENU_ITEM_UNCLICKABLE } from "./constant";
+import {
+  COMPONENT_NAME,
+  CLASS_MENU,
+  CLASS_MENU_ITEM,
+  CLASS_MENU_ITEM_UNCLICKABLE,
+} from "./constant";
 
 Vue.component(COMPONENT_NAME, Submenu);
 
 class Contextmenu {
-
   constructor(options) {
     const SubmenuConstructor = Vue.component(COMPONENT_NAME);
     this.instance = new SubmenuConstructor();
     this.instance.items = options.items;
     this.instance.position = {
-      x: options.event && options.event.clientX || options.x || 0,
-      y: options.event && options.event.clientY || options.y || 0,
+      x: (options.event && options.event.clientX) || options.x || 0,
+      y: (options.event && options.event.clientY) || options.y || 0,
       width: 0,
-      height: 0
+      height: 0,
     };
     options.minWidth && (this.instance.style.minWidth = options.minWidth);
     options.zIndex && (this.instance.style.zIndex = options.zIndex);
@@ -33,10 +36,10 @@ class Contextmenu {
   mouseDownListener(e) {
     let el = e.target;
     const menus = getElementsByClassName(CLASS_MENU);
-    while (!menus.find(m => m === el) && el.parentElement) {
+    while (!menus.find((m) => m === el) && el.parentElement) {
       el = el.parentElement;
     }
-    if (!menus.find(m => m === el)) {
+    if (!menus.find((m) => m === el)) {
       this.close();
     }
   }
@@ -45,22 +48,24 @@ class Contextmenu {
     let el = e.target;
     const menus = getElementsByClassName(CLASS_MENU);
     const menuItems = getElementsByClassName(CLASS_MENU_ITEM);
-    const unclickableMenuItems = getElementsByClassName(CLASS_MENU_ITEM_UNCLICKABLE);
+    const unclickableMenuItems = getElementsByClassName(
+      CLASS_MENU_ITEM_UNCLICKABLE
+    );
     while (
-      !menus.find(m => m === el) &&
-      !menuItems.find(m => m === el) &&
+      !menus.find((m) => m === el) &&
+      !menuItems.find((m) => m === el) &&
       el.parentElement
     ) {
       el = el.parentElement;
     }
-    if (menuItems.find(m => m === el)) {
-      if (e.button !== 0 || unclickableMenuItems.find(m => m === el)) {
+    if (menuItems.find((m) => m === el)) {
+      if (e.button !== 0 || unclickableMenuItems.find((m) => m === el)) {
         return;
       }
       this.close();
       return;
     }
-    if (!menus.find(m => m === el)) {
+    if (!menus.find((m) => m === el)) {
       this.close();
     }
   }
@@ -92,20 +97,20 @@ function install(Vue) {
   const ContextmenuProxy = function (options) {
     ContextmenuProxy.destroy();
     last = new Contextmenu(options);
-  }
+  };
   ContextmenuProxy.destroy = function () {
     if (last) {
       last.close();
       last = null;
     }
-  }
+  };
   Vue.prototype.$contextmenu = ContextmenuProxy;
 }
 
 if (window && window.Vue) {
-  install(window.Vue)
+  install(window.Vue);
 }
 
 export default {
-  install
-}
+  install,
+};

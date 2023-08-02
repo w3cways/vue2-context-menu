@@ -1,27 +1,29 @@
 {
-  "name": "vue-contextmenujs",
-  "version": "1.4.9",
-  "description": "Vue contextmenu",
+  "name": "@w3cways/vue2-context-menu",
+  "version": "1.5.6",
+  "description": "Vue2 contextmenu",
   "keywords": [
     "Vue",
+    "Vue2",
     "Contextmenu",
     "右键菜单"
   ],
   "main": "index.js",
+  "typings": "types/index.d.ts",
   "scripts": {
     "test": "vue-cli-service serve ./test/main.js ",
     "build": "vue-cli-service build --target lib --name contextmenu index.js && rm ./dist/demo.html"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GitHub-Laziji/menujs.git"
+    "url": "git+https://github.com/w3cways/vue2-context-menu"
   },
-  "author": "laziji",
+  "author": "w3cways",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/GitHub-Laziji/menujs/issues"
+    "url": "https://github.com/w3cways/vue2-context-menu/issues"
   },
-  "homepage": "https://github.com/GitHub-Laziji/menujs#readme",
+  "homepage": "https://github.com/w3cways/vue2-context-menu#readme",
   "devDependencies": {
     "vue": "^2.6.10",
     "@vue/cli-service": "5.0.8",
@@ -33,6 +35,11 @@
     "index.js",
     "package.json",
     "README.md",
+    "types/*",
     "LICENSE"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }
